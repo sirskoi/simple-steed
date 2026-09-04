@@ -15,7 +15,7 @@
 * **Verticality:** Empower horse armor with **Leaping** to vault over barriers and scale high terrain with ease.
 * **Defend Your Steed:** Horse Armor is no longer just cosmetic. It now accepts utility enchantments like **Feather Falling** and **Protection**.
 * **Exploration Loot:** Find these rare enchantments in Bastions, Nether Fortresses, and Trial Chambers (Vaults).
-* **Balanced Economy:** Acquire the books directly through Master Librarians.
+* **Villager Trading:** Acquire the books directly through Master Librarians.
 
 ---
 
