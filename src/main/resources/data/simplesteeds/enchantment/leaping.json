@@ -1,0 +1,22 @@
+{
+  "description": {
+    "translate": "enchantment.simplesteeds.leaping"
+  },
+  "supported_items": "#simplesteeds:enchantable/leaping",
+  "weight": 2,
+  "max_level": 3,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 5
+  },
+  "max_cost": {
+    "base": 60,
+    "per_level_above_first": 5
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "hand",
+    "armor"
+  ],
+  "effects": {}
+}
