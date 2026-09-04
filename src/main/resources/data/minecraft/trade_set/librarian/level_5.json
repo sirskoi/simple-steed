@@ -1,0 +1,28 @@
+{
+  "replace": true,
+  "amount": 2,
+  "trades": [
+    "simplesteeds:red_candle",
+    "simplesteeds:red_candle",
+    "simplesteeds:red_candle",
+    "simplesteeds:red_candle",
+    "simplesteeds:red_candle",
+    "simplesteeds:yellow_candle",
+    "simplesteeds:yellow_candle",
+    "simplesteeds:yellow_candle",
+    "simplesteeds:yellow_candle",
+    "simplesteeds:yellow_candle",
+    "simplesteeds:leaping_level_1",
+    "simplesteeds:leaping_level_1",
+    "simplesteeds:leaping_level_1",
+    "simplesteeds:momentum_level_1",
+    "simplesteeds:momentum_level_1",
+    "simplesteeds:momentum_level_1",
+    "simplesteeds:leaping_level_2",
+    "simplesteeds:leaping_level_2",
+    "simplesteeds:momentum_level_2",
+    "simplesteeds:momentum_level_2",
+    "simplesteeds:leaping_level_3",
+    "simplesteeds:momentum_level_3"
+  ]
+}

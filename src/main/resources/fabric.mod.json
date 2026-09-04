@@ -1,0 +1,41 @@
+{
+  "schemaVersion": 1,
+  "id": "simplesteeds",
+  "version": "${version}",
+  "name": "Simple Steeds",
+  "description": "Configure your trusty steed with all you need.",
+  "authors": [],
+  "contact": {},
+  "license": "GPL-3.0",
+  "icon": "assets/simplesteeds/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "sirskoi.simplesteeds.client.SimplesteedsDataGenerator"
+    ],
+    "client": [
+      "sirskoi.simplesteeds.client.SimplesteedsClient"
+    ],
+    "main": [
+      "sirskoi.simplesteeds.Simplesteeds"
+    ],
+    "modmenu": [
+      "sirskoi.simplesteeds.client.modmenu"
+    ]
+  },
+  "mixins": [
+    "simplesteeds.mixins.json",
+    {
+      "config": "simplesteeds.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric-api": "*",
+    "minecraft": "${minecraft_version}"
+  },
+  "suggests": {
+    "modmenu": "*"
+  }
+}

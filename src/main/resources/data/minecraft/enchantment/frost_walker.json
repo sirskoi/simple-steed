@@ -1,0 +1,21 @@
+{
+  "description": {
+    "translate": "enchantment.minecraft.frost_walker"
+  },
+  "supported_items": "#simplesteeds:enchantable/mount_foot_armor",
+  "weight": 2,
+  "max_level": 2,
+  "min_cost": {
+    "base": 10,
+    "per_level_above_first": 15
+  },
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 15
+  },
+  "anvil_cost": 4,
+  "slots": [
+    "feet"
+  ],
+  "effects": {}
+}
