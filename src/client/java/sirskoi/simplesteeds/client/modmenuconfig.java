@@ -15,15 +15,13 @@ import net.minecraft.network.chat.Component;
 import sirskoi.simplesteeds.modconfig;
 
 public class modmenuconfig extends Screen {
-    private final Screen parent;
     private final modconfig defaults = new modconfig();
     private final List<RowEntry> rows = new ArrayList<>();
     private double scrollOffset = 0;
     private double maxScroll = 0;
 
-    public modmenuconfig(Screen parent) {
+    public modmenuconfig(Screen ignoredParent) {
         super(Component.literal("Simple Steeds"));
-        this.parent = parent;
     }
 
     @Override
@@ -64,35 +62,29 @@ public class modmenuconfig extends Screen {
         currentY += 22;
 
         ConfigSlider momentumSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Momentum Speed", cfg.momentumSpeedMultiplier,
-                0.0, 2.0, 0.05, "%.2f", val -> cfg.momentumSpeedMultiplier = val, "Speed bonus per momentum level");
+                2.0, 0.05, "%.2f", val -> cfg.momentumSpeedMultiplier = val, "Speed bonus per momentum level");
         currentY += 22;
 
         ConfigSlider leapSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Leaping Jump", cfg.leapingJumpMultiplier,
-                0.0, 2.0, 0.05, "%.2f", val -> cfg.leapingJumpMultiplier = val, "Jump bonus per leaping level");
-        currentY += 22;
-
-        ConfigSlider camelSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Camel Leaping", cfg.camelLeapingMultiplier,
-                0.0, 2.0, 0.05, "%.2f", val -> cfg.camelLeapingMultiplier = val, "Camel jump bonus per leaping level");
+                2.0, 0.05, "%.2f", val -> cfg.leapingJumpMultiplier = val, "Jump bonus per leaping level");
         currentY += 22;
 
         ConfigSlider ghastSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Happy Ghast Speed", cfg.happyGhastSpeedMultiplier,
-                0.0, 2.0, 0.05, "%.2f", val -> cfg.happyGhastSpeedMultiplier = val, "Speed multiplier when riding happy ghasts");
+                2.0, 0.05, "%.2f", val -> cfg.happyGhastSpeedMultiplier = val, "Speed multiplier when riding happy ghasts");
         currentY += 22;
 
         ConfigSlider soulSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Soul Speed Bonus", cfg.soulSpeedBonusPerLevel,
-                0.0, 1.0, 0.01, "%.2f", val -> cfg.soulSpeedBonusPerLevel = val, "Speed bonus on soul blocks per soul speed level");
+                1.0, 0.01, "%.2f", val -> cfg.soulSpeedBonusPerLevel = val, "Speed bonus on soul blocks per soul speed level");
         currentY += 24;
 
         addResetButton(centerX, currentY, "Reset Movement Defaults", () -> {
             cfg.momentumSpeedMultiplier = defaults.momentumSpeedMultiplier;
             cfg.leapingJumpMultiplier = defaults.leapingJumpMultiplier;
-            cfg.camelLeapingMultiplier = defaults.camelLeapingMultiplier;
             cfg.happyGhastSpeedMultiplier = defaults.happyGhastSpeedMultiplier;
             cfg.soulSpeedBonusPerLevel = defaults.soulSpeedBonusPerLevel;
 
             momentumSlider.setValueDirect(defaults.momentumSpeedMultiplier);
             leapSlider.setValueDirect(defaults.leapingJumpMultiplier);
-            camelSlider.setValueDirect(defaults.camelLeapingMultiplier);
             ghastSlider.setValueDirect(defaults.happyGhastSpeedMultiplier);
             soulSlider.setValueDirect(defaults.soulSpeedBonusPerLevel);
         });
@@ -103,23 +95,23 @@ public class modmenuconfig extends Screen {
         currentY += 22;
 
         ConfigSlider featherSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Feather Falling", cfg.featherFallingReductionPerLevel,
-                0.0, 20.0, 0.5, "%.1f", val -> cfg.featherFallingReductionPerLevel = val, "Damage absorbed per feather falling level (6.0 = 3 hearts)");
+                20.0, 0.5, "%.1f", val -> cfg.featherFallingReductionPerLevel = val, "Damage absorbed per feather falling level (6.0 = 3 hearts)");
         currentY += 22;
 
         ConfigSlider protSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Protection", cfg.protectionReductionPerLevel,
-                0.0, 1.0, 0.025, "%.3f", val -> cfg.protectionReductionPerLevel = val, "Damage reduction per protection level (0.125 = 12.5%)");
+                1.0, 0.025, "%.3f", val -> cfg.protectionReductionPerLevel = val, "Damage reduction per protection level (0.125 = 12.5%)");
         currentY += 22;
 
         ConfigSlider fireSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Fire Protection", cfg.fireProtectionReductionPerLevel,
-                0.0, 1.0, 0.05, "%.2f", val -> cfg.fireProtectionReductionPerLevel = val, "Damage reduction per fire protection level (0.2 = 20%)");
+                1.0, 0.05, "%.2f", val -> cfg.fireProtectionReductionPerLevel = val, "Damage reduction per fire protection level (0.2 = 20%)");
         currentY += 22;
 
         ConfigSlider blastSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Blast Protection", cfg.blastProtectionReductionPerLevel,
-                0.0, 1.0, 0.05, "%.2f", val -> cfg.blastProtectionReductionPerLevel = val, "Damage reduction per blast protection level (0.2 = 20%)");
+                1.0, 0.05, "%.2f", val -> cfg.blastProtectionReductionPerLevel = val, "Damage reduction per blast protection level (0.2 = 20%)");
         currentY += 22;
 
         ConfigSlider projSlider = addSliderRow(leftX, rightX, currentY, widgetWidth, "Projectile Prot", cfg.projectileProtectionReductionPerLevel,
-                0.0, 1.0, 0.05, "%.2f", val -> cfg.projectileProtectionReductionPerLevel = val, "Damage reduction per projectile protection level (0.2 = 20%)");
+                1.0, 0.05, "%.2f", val -> cfg.projectileProtectionReductionPerLevel = val, "Damage reduction per projectile protection level (0.2 = 20%)");
         currentY += 24;
 
         addResetButton(centerX, currentY, "Reset Protection Defaults", () -> {
@@ -144,13 +136,13 @@ public class modmenuconfig extends Screen {
         int topArrowY = 36;
         int bottomArrowY = this.height - 48;
 
-        addRenderableWidget(Button.builder(Component.literal("▲"), b -> setScroll(this.scrollOffset - 32))
+        addRenderableWidget(Button.builder(Component.literal("▲"), ignored -> setScroll(this.scrollOffset - 32))
                 .bounds(scrollbarX, topArrowY, 18, 18).build());
-        addRenderableWidget(Button.builder(Component.literal("▼"), b -> setScroll(this.scrollOffset + 32))
+        addRenderableWidget(Button.builder(Component.literal("▼"), ignored -> setScroll(this.scrollOffset + 32))
                 .bounds(scrollbarX, bottomArrowY, 18, 18).build());
 
         //centerbuttons
-        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, b -> this.onClose())
+        addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, ignored -> this.onClose())
                 .bounds(centerX - 100, this.height - 26, 200, 20).build());
 
         updatePositions();
@@ -166,7 +158,7 @@ public class modmenuconfig extends Screen {
 
     private CycleButton<Boolean> addBooleanRow(int leftX, int rightX, int y, int width, String label, boolean initialVal,
                                                java.util.function.Consumer<Boolean> consumer, String tooltip) {
-        Button labelBtn = Button.builder(Component.literal("§f" + label), b -> {})
+        Button labelBtn = Button.builder(Component.literal("§f" + label), ignored -> {})
                 .bounds(leftX, y, width, 20).build();
         labelBtn.active = false;
         labelBtn.setTooltip(Tooltip.create(Component.literal(tooltip)));
@@ -174,7 +166,7 @@ public class modmenuconfig extends Screen {
 
         CycleButton<Boolean> toggle = CycleButton.onOffBuilder(initialVal)
                 .displayOnlyValue()
-                .create(rightX, y, width, 20, Component.empty(), (btn, val) -> consumer.accept(val));
+                .create(rightX, y, width, 20, Component.empty(), (ignored, val) -> consumer.accept(val));
         toggle.setTooltip(Tooltip.create(Component.literal(tooltip)));
         addRenderableWidget(toggle);
 
@@ -183,15 +175,15 @@ public class modmenuconfig extends Screen {
     }
 
     private ConfigSlider addSliderRow(int leftX, int rightX, int y, int width, String label, float initialVal,
-                                      double min, double max, double step, String format,
+                                      double max, double step, String format,
                                       java.util.function.Consumer<Float> consumer, String tooltip) {
-        Button labelBtn = Button.builder(Component.literal("§f" + label), b -> {})
+        Button labelBtn = Button.builder(Component.literal("§f" + label), ignored -> {})
                 .bounds(leftX, y, width, 20).build();
         labelBtn.active = false;
         labelBtn.setTooltip(Tooltip.create(Component.literal(tooltip)));
         addRenderableWidget(labelBtn);
 
-        ConfigSlider slider = new ConfigSlider(rightX, y, width, 20, initialVal, min, max, step, format, consumer);
+        ConfigSlider slider = new ConfigSlider(rightX, y, width, 20, initialVal, 0.0, max, step, format, consumer);
         slider.setTooltip(Tooltip.create(Component.literal(tooltip)));
         addRenderableWidget(slider);
 
@@ -200,7 +192,7 @@ public class modmenuconfig extends Screen {
     }
 
     private void addResetButton(int centerX, int y, String label, Runnable onReset) {
-        Button resetBtn = Button.builder(Component.literal("§f" + label), b -> onReset.run())
+        Button resetBtn = Button.builder(Component.literal("§f" + label), ignored -> onReset.run())
                 .bounds(centerX - 100, y, 200, 20).build();
         resetBtn.setTooltip(Tooltip.create(Component.literal("Reset this section to default configuration values")));
         addRenderableWidget(resetBtn);
@@ -208,7 +200,7 @@ public class modmenuconfig extends Screen {
     }
 
     private void setScroll(double target) {
-        this.scrollOffset = Math.max(0, Math.min(target, this.maxScroll));
+        this.scrollOffset = Math.clamp(target, 0.0, this.maxScroll);
         updatePositions();
     }
 
@@ -272,7 +264,7 @@ public class modmenuconfig extends Screen {
         }
 
         public void setValueDirect(double newValue) {
-            this.value = Math.max(0.0, Math.min(1.0, (newValue - this.min) / (this.max - this.min)));
+            this.value = Math.clamp((newValue - this.min) / (this.max - this.min), 0.0, 1.0);
             this.updateMessage();
         }
 
