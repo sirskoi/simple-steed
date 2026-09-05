@@ -24,11 +24,11 @@ Upgrading your mount requires rare books and an Anvil. Transform your ride into 
 
 ### Momentum (I - III)
 * **Slot:** Saddles & Harness'
-* **Function:** Increases movement speed by **30% per level** on Horses, Pigs, Striders and Camels and **50% per level** on Happy Ghasts. (Configurable).
+* **Function:** Increases movement speed by **30% per level** on Horses, Pigs, Striders and Camels and **30% per level** on Happy Ghasts. (Configurable).
 
 ### Leaping (I - III)
 * **Slot:** Saddles
-* **Function:** Increases jump strength by **10% per level** and **2.5% per level** for Camel leaps! (Configurable).
+* **Function:** Increases jump strength by **10% per level** on Horses. (Configurable).
 
 ### Protection
 * **Slot:** Horse Armor & Saddles
