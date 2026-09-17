@@ -7,45 +7,46 @@ import net.minecraft.world.level.storage.loot.BuiltInLootTables;
 import net.minecraft.world.level.storage.loot.LootPool;
 import net.minecraft.world.level.storage.loot.entries.LootItem;
 import net.minecraft.world.level.storage.loot.functions.SetEnchantmentsFunction;
-import net.minecraft.world.level.storage.loot.providers.number.ConstantValue;
+import net.minecraft.world.level.storage.loot.providers.number.ints.ContextIntProviders;
 
 public class loottable {
 
     public static void register() {
         LootTableEvents.MODIFY.register((key, tableBuilder, source, registries) -> {
             if (!modconfig.INSTANCE.enableLootTableChanges) return;
+            if (!source.isBuiltin()) return;
 
             if (key.equals(BuiltInLootTables.BASTION_TREASURE) ||
                     key.equals(BuiltInLootTables.NETHER_BRIDGE) ||
                     key.equals(BuiltInLootTables.TRIAL_CHAMBERS_REWARD)) {
 
                 LootPool.Builder poolBuilder = LootPool.lootPool()
-                        .setRolls(ConstantValue.exactly(1));
+                        .setRolls(ContextIntProviders.exactly(1));
 
                 var momentum1 = LootItem.lootTableItem(Items.ENCHANTED_BOOK)
                         .apply(new SetEnchantmentsFunction.Builder()
-                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.MOMENTUM), ConstantValue.exactly(1))
+                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.MOMENTUM), ContextIntProviders.exactly(1))
                         );
                 var momentum2 = LootItem.lootTableItem(Items.ENCHANTED_BOOK)
                         .apply(new SetEnchantmentsFunction.Builder()
-                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.MOMENTUM), ConstantValue.exactly(2))
+                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.MOMENTUM), ContextIntProviders.exactly(2))
                         );
                 var momentum3 = LootItem.lootTableItem(Items.ENCHANTED_BOOK)
                         .apply(new SetEnchantmentsFunction.Builder()
-                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.MOMENTUM), ConstantValue.exactly(3))
+                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.MOMENTUM), ContextIntProviders.exactly(3))
                         );
 
                 var leaping1 = LootItem.lootTableItem(Items.ENCHANTED_BOOK)
                         .apply(new SetEnchantmentsFunction.Builder()
-                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.LEAPING), ConstantValue.exactly(1))
+                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.LEAPING), ContextIntProviders.exactly(1))
                         );
                 var leaping2 = LootItem.lootTableItem(Items.ENCHANTED_BOOK)
                         .apply(new SetEnchantmentsFunction.Builder()
-                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.LEAPING), ConstantValue.exactly(2))
+                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.LEAPING), ContextIntProviders.exactly(2))
                         );
                 var leaping3 = LootItem.lootTableItem(Items.ENCHANTED_BOOK)
                         .apply(new SetEnchantmentsFunction.Builder()
-                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.LEAPING), ConstantValue.exactly(3))
+                                .withEnchantment(registries.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.LEAPING), ContextIntProviders.exactly(3))
                         );
 
                 //momentum 10x Level 1 [50%], 7x Level 2 [35%], 3x Level 3 [15%]

@@ -6,5 +6,6 @@ public class Simplesteeds implements ModInitializer {
     @Override
     public void onInitialize() {
         modconfig.load();
+        loottable.register();
     }
 }
