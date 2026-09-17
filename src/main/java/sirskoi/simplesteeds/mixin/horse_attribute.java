@@ -1,6 +1,7 @@
 package sirskoi.simplesteeds.mixin;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -8,7 +9,7 @@ import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.animal.equine.AbstractHorse;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.ItemEnchantments;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -24,14 +25,13 @@ public class horse_attribute {
         LivingEntity entity = (LivingEntity) (Object) this;
 
         if (entity instanceof AbstractHorse horse) {
-            //bodyslotjump
-            if (attribute.is(Attributes.JUMP_STRENGTH)) {
+            //bodysuit jump
+            if (attribute.equals(Attributes.JUMP_STRENGTH)) { // Changed from .is() to .equals()
                 ItemStack armor = horse.getItemBySlot(EquipmentSlot.BODY);
                 if (!armor.isEmpty()) {
-                    int level = EnchantmentHelper.getItemEnchantmentLevel(
-                            horse.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.LEAPING),
-                            armor
-                    );
+                    int level = armor.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY)
+                            .getLevel(horse.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.LEAPING));
+
                     if (level > 0) {
                         double original = cir.getReturnValue();
                         double boost = original * (modconfig.INSTANCE.leapingJumpMultiplier * level);
@@ -40,14 +40,13 @@ public class horse_attribute {
                 }
             }
 
-            //saddleslotjump
-            if (attribute.is(Attributes.MOVEMENT_SPEED)) {
+            //sidesaddle
+            if (attribute.equals(Attributes.MOVEMENT_SPEED)) { // Changed from .is() to .equals()
                 ItemStack saddle = horse.getItemBySlot(EquipmentSlot.SADDLE);
                 if (!saddle.isEmpty()) {
-                    int level = EnchantmentHelper.getItemEnchantmentLevel(
-                            horse.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.MOMENTUM),
-                            saddle
-                    );
+                    int level = saddle.getOrDefault(DataComponents.ENCHANTMENTS, ItemEnchantments.EMPTY)
+                            .getLevel(horse.registryAccess().lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantments.MOMENTUM));
+
                     if (level > 0) {
                         double original = cir.getReturnValue();
                         double boost = original * (modconfig.INSTANCE.momentumSpeedMultiplier * level);

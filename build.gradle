@@ -38,8 +38,9 @@ dependencies {
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-    // Compiles Mod Menu integration for the client source set with ZERO bundling
-    clientCompileOnly "com.terraformersmc:modmenu:20.0.1"
+// modmenucompilenobundle
+    clientCompileOnly "com.terraformersmc:modmenu:21.0.0-beta.1"
+    clientRuntimeOnly "com.terraformersmc:modmenu:21.0.0-beta.1"
 }
 
 processResources {
