@@ -19,24 +19,18 @@ public class modconfig {
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     public static modconfig INSTANCE = new modconfig();
+    public transient boolean isServerConfig = false;
 
-    //feat & toggles
     public boolean enableLootTableChanges = true;
     public boolean enableVanillaMountEnchantments = true;
-
-    //speed n leap
     public float momentumSpeedMultiplier = 0.3f;
     public float leapingJumpMultiplier = 0.1f;
     public float happyGhastSpeedMultiplier = 0.3f;
-
-    //prot multipliers
     public float featherFallingReductionPerLevel = 6.0f;
     public float protectionReductionPerLevel = 0.125f;
     public float fireProtectionReductionPerLevel = 0.2f;
     public float blastProtectionReductionPerLevel = 0.2f;
     public float projectileProtectionReductionPerLevel = 0.2f;
-
-    //soul speed
     public float soulSpeedBonusPerLevel = 0.1f;
 
     public static void load() {
@@ -45,17 +39,7 @@ public class modconfig {
                 String content = Files.readString(CONFIG_FILE.toPath());
                 JsonObject json = JsonParser.parseString(content).getAsJsonObject();
 
-                if (!json.has("enableLootTableChanges")
-                        || !json.has("enableVanillaMountEnchantments")
-                        || !json.has("happyGhastSpeedMultiplier")
-                        || !json.has("leapingJumpMultiplier")
-                        || !json.has("momentumSpeedMultiplier")
-                        || !json.has("featherFallingReductionPerLevel")
-                        || !json.has("protectionReductionPerLevel")
-                        || !json.has("fireProtectionReductionPerLevel")
-                        || !json.has("blastProtectionReductionPerLevel")
-                        || !json.has("projectileProtectionReductionPerLevel")
-                        || !json.has("soulSpeedBonusPerLevel")) {
+                if (!json.has("enableLootTableChanges") || !json.has("soulSpeedBonusPerLevel")) {
                     Files.deleteIfExists(CONFIG_FILE.toPath());
                 } else {
                     INSTANCE = GSON.fromJson(json, modconfig.class);
@@ -74,8 +58,9 @@ public class modconfig {
     }
 
     public static void save() {
+        if (INSTANCE.isServerConfig) return;
+
         try {
-            //config directory check
             Path configDir = CONFIG_FILE.getParentFile().toPath();
             if (!Files.exists(configDir)) {
                 Files.createDirectories(configDir);
