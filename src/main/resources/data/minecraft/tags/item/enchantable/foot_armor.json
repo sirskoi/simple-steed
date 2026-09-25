@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:saddle",
+    "#simplesteeds:horse_armor"
+  ]
+}

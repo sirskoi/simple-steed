@@ -36,6 +36,13 @@ public class modmenuconfig extends Screen {
         int currentY = 38;
 
         modconfig cfg = modconfig.INSTANCE;
+        boolean isLocked = cfg.isServerConfig;
+
+        // warn player if config is locked on server sync
+        if (isLocked) {
+            addCategoryHeader(centerX, currentY, "Config Locked By Server");
+            currentY += 24;
+        }
 
         //general
         addCategoryHeader(centerX, currentY, "General");
@@ -49,7 +56,7 @@ public class modmenuconfig extends Screen {
                 val -> cfg.enableVanillaMountEnchantments = val, "Allow vanilla enchantments on mount gear");
         currentY += 24;
 
-        addResetButton(centerX, currentY, "Reset General Defaults", () -> {
+        Button resetGen = addResetButton(centerX, currentY, "Reset General Defaults", () -> {
             cfg.enableLootTableChanges = defaults.enableLootTableChanges;
             cfg.enableVanillaMountEnchantments = defaults.enableVanillaMountEnchantments;
             lootToggle.setValue(defaults.enableLootTableChanges);
@@ -77,7 +84,7 @@ public class modmenuconfig extends Screen {
                 1.0, 0.01, "%.2f", val -> cfg.soulSpeedBonusPerLevel = val, "Speed bonus on soul blocks per soul speed level");
         currentY += 24;
 
-        addResetButton(centerX, currentY, "Reset Movement Defaults", () -> {
+        Button resetMov = addResetButton(centerX, currentY, "Reset Movement Defaults", () -> {
             cfg.momentumSpeedMultiplier = defaults.momentumSpeedMultiplier;
             cfg.leapingJumpMultiplier = defaults.leapingJumpMultiplier;
             cfg.happyGhastSpeedMultiplier = defaults.happyGhastSpeedMultiplier;
@@ -114,7 +121,7 @@ public class modmenuconfig extends Screen {
                 1.0, 0.05, "%.2f", val -> cfg.projectileProtectionReductionPerLevel = val, "Damage reduction per projectile protection level (0.2 = 20%)");
         currentY += 24;
 
-        addResetButton(centerX, currentY, "Reset Protection Defaults", () -> {
+        Button resetProt = addResetButton(centerX, currentY, "Reset Protection Defaults", () -> {
             cfg.featherFallingReductionPerLevel = defaults.featherFallingReductionPerLevel;
             cfg.protectionReductionPerLevel = defaults.protectionReductionPerLevel;
             cfg.fireProtectionReductionPerLevel = defaults.fireProtectionReductionPerLevel;
@@ -144,6 +151,18 @@ public class modmenuconfig extends Screen {
         //centerbuttons
         addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, ignored -> this.onClose())
                 .bounds(centerX - 100, this.height - 26, 200, 20).build());
+
+        // lock controls while synced
+        if (isLocked) {
+            for (RowEntry entry : rows) {
+                if (entry.control != null) {
+                    entry.control.active = false;
+                }
+            }
+            resetGen.active = false;
+            resetMov.active = false;
+            resetProt.active = false;
+        }
 
         updatePositions();
     }
@@ -191,12 +210,13 @@ public class modmenuconfig extends Screen {
         return slider;
     }
 
-    private void addResetButton(int centerX, int y, String label, Runnable onReset) {
+    private Button addResetButton(int centerX, int y, String label, Runnable onReset) {
         Button resetBtn = Button.builder(Component.literal("§f" + label), ignored -> onReset.run())
                 .bounds(centerX - 100, y, 200, 20).build();
         resetBtn.setTooltip(Tooltip.create(Component.literal("Reset this section to default configuration values")));
         addRenderableWidget(resetBtn);
         rows.add(new RowEntry(y, null, resetBtn));
+        return resetBtn; // returned to allow disabling by lock
     }
 
     private void setScroll(double target) {
